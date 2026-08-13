@@ -22,20 +22,53 @@ task setup
 
 Then work through the notebooks in order:
 
-| Notebook | What it does |
-|---|---|
-| [`00_eda.ipynb`](notebooks/00_eda.ipynb) | Understand the data. Produces insights, not artifacts. |
-| [`01_clean_and_split.ipynb`](notebooks/01_clean_and_split.ipynb) | Deterministic cleaning and the train/test split. |
-| [`02a_model_a.ipynb`](notebooks/02a_model_a.ipynb) | One notebook per model: preprocessing, tuning, training. |
-| [`03_evaluation.ipynb`](notebooks/03_evaluation.ipynb) | Final comparison on the held-out test set. |
+| Notebook | What it does | Colab |
+|---|---|---|
+| [`00_eda.ipynb`](notebooks/00_eda.ipynb) | Understand the data. Produces insights, not artifacts. | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/NguyenVu04/templates/blob/main/machine-learning/notebooks/00_eda.ipynb) |
+| [`01_clean_and_split.ipynb`](notebooks/01_clean_and_split.ipynb) | Deterministic cleaning and the train/test split. | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/NguyenVu04/templates/blob/main/machine-learning/notebooks/01_clean_and_split.ipynb) |
+| [`02a_model_a.ipynb`](notebooks/02a_model_a.ipynb) | One notebook per model: preprocessing, tuning, training. | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/NguyenVu04/templates/blob/main/machine-learning/notebooks/02a_model_a.ipynb) |
+| [`03_evaluation.ipynb`](notebooks/03_evaluation.ipynb) | Final comparison on the held-out test set. | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/NguyenVu04/templates/blob/main/machine-learning/notebooks/03_evaluation.ipynb) |
 
 Each notebook is a sectioned template: every section states what belongs in it,
 what does not, and which `src/` function to call.
 
+## Running in Google Colab
+
+Click a badge above. Every notebook opens with a **section 0** that bootstraps
+its own environment — run it first and the rest of the notebook behaves as it
+does locally:
+
+- It clones this repository into `/content` and puts the project root on
+  `sys.path`, so `from src.config import load_config` works without an editable
+  install.
+- It installs only what Colab does not already ship — `hydra-core`, plus
+  `mlflow` in `02a`. numpy, pandas, pyarrow, scikit-learn, joblib, matplotlib
+  and seaborn are preinstalled there, so nothing is upgraded and Colab never
+  asks for a runtime restart.
+- It `chdir`s to the project root, so the root-relative paths in
+  `configs/data.yaml` resolve exactly as they do for `task clean:data`.
+
+The same cell runs locally, where it does nothing but find the project root —
+which also fixes JupyterLab starting its kernel in `notebooks/`.
+
+**Data and artifacts.** `data/` and `models/` are DVC-tracked and are not part
+of a Git clone, so a fresh Colab runtime has neither. Section 0 ships a
+commented-out cell that mounts Google Drive and repoints the config at it via
+`CONFIG_OVERRIDES`; uncomment it and set the Drive path. Drive is also what
+makes notebook 01's splits and notebook 02a's artifact survive a runtime reset —
+`/content` does not.
+
+**What a Colab run proves today.** Every `src/` body is a placeholder raising
+`NotImplementedError`, so a fresh clone gets as far as the setup cell and stops
+there. That failure *is* the expected result: it means the environment, the
+imports and the config directory all resolved, and only the logic is missing.
+
 ## Adapting the template to a new project
 
 1. **Rename the project.** `pyproject.toml` (`name`), and `<project-name>` in
-   `configs/config.yaml` and `app/api/main.py`.
+   `configs/config.yaml` and `app/api/main.py`. If you forked or moved the
+   repository, repoint Colab too: the badge URL at the top of each notebook and
+   the `REPO_URL` / `BRANCH` / `SUBDIR` values in its section 0 bootstrap cell.
 2. **Describe the data.** Fill in `configs/data.yaml`: paths, target, grouping
    column, split scheme, and one `schema.columns` entry per column. Every hard
    bound needs a `source` — the standard, specification or physical limit it
