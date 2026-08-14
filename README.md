@@ -40,9 +40,11 @@ set of documents to drop into any project, whatever the stack.
 | [CHANGELOG.template.md](docs/CHANGELOG.template.md) | `CHANGELOG.md` | Keep a Changelog skeleton with a worked release entry |
 | [adr/README.template.md](docs/adr/README.template.md) | `docs/adr/README.md` | When a decision warrants a record, the lifecycle, and the index |
 | [adr/0001-record-architecture-decisions.md](docs/adr/0001-record-architecture-decisions.md) | `docs/adr/0001-…md` | The record format — and, as written, a real first ADR |
+| [CLAUDE.template.md](docs/CLAUDE.template.md) | `CLAUDE.md` | Instructions for Claude Code: the working agreement it must follow, plus the commands, architecture and conventions it cannot infer |
 
 ```bash
 cp docs/README.template.md        my-project/README.md
+cp docs/CLAUDE.template.md        my-project/CLAUDE.md
 cp docs/SECURITY.template.md      my-project/SECURITY.md
 cp docs/CONTRIBUTING.template.md  my-project/CONTRIBUTING.md
 cp docs/CHANGELOG.template.md     my-project/CHANGELOG.md
