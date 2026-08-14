@@ -41,6 +41,7 @@ set of documents to drop into any project, whatever the stack.
 | [adr/README.template.md](docs/adr/README.template.md) | `docs/adr/README.md` | When a decision warrants a record, the lifecycle, and the index |
 | [adr/0001-record-architecture-decisions.md](docs/adr/0001-record-architecture-decisions.md) | `docs/adr/0001-…md` | The record format — and, as written, a real first ADR |
 | [CLAUDE.template.md](docs/CLAUDE.template.md) | `CLAUDE.md` | Instructions for Claude Code: the working agreement it must follow, plus the commands, architecture and conventions it cannot infer |
+| [USECASE_SPECIFICATION.html](docs/USECASE_SPECIFICATION.html) | `docs/USECASE_SPECIFICATION.html` | The document written before the code: overview and positioning, goals, stakeholders, functional and non-functional requirements, and a use case block per interaction. Self-contained dark-theme HTML — opens in a browser, prints to PDF for sign-off |
 
 ```bash
 cp docs/README.template.md        my-project/README.md
@@ -51,6 +52,7 @@ cp docs/CHANGELOG.template.md     my-project/CHANGELOG.md
 mkdir -p my-project/docs/adr
 cp docs/adr/README.template.md    my-project/docs/adr/README.md
 cp docs/adr/0001-*.md             my-project/docs/adr/
+cp docs/USECASE_SPECIFICATION.html my-project/docs/
 ```
 
 Relative links inside the templates — `SECURITY.md`, `docs/adr/`,
@@ -71,6 +73,14 @@ tells you whether a copy is finished:
 ```bash
 grep -n '<[A-Z][A-Z0-9_]*>' README.md      # must return nothing
 ```
+
+[USECASE_SPECIFICATION.html](docs/USECASE_SPECIFICATION.html) is the one
+exception: being HTML, it escapes its placeholders as `&lt;NAME&gt;` — an
+unescaped one would be parsed as a tag and vanish from the rendered page — so its
+check is `grep -n '&lt;[A-Z][A-Z0-9_]*&gt;'`. For the same reason its markers are
+visible boxes on the page rather than HTML comments, which nobody reading in a
+browser would see. It needs no `.template` suffix: GitHub auto-discovers only
+`SECURITY.md` and `CONTRIBUTING.md`.
 
 **Markers** in HTML comments say whether a section applies to you. They never
 render, and they are deleted along with the sections they govern:
