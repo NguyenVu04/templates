@@ -39,7 +39,7 @@ set of documents to drop into any project, whatever the stack.
 | [CONTRIBUTING.template.md](docs/CONTRIBUTING.template.md) | `CONTRIBUTING.md` | Setup, commit and branch conventions, PR requirements, review SLA |
 | [CHANGELOG.template.md](docs/CHANGELOG.template.md) | `CHANGELOG.md` | Keep a Changelog skeleton with a worked release entry |
 | [adr/README.template.md](docs/adr/README.template.md) | `docs/adr/README.md` | When a decision warrants a record, the lifecycle, and the index |
-| [adr/0001-record-architecture-decisions.md](docs/adr/0001-record-architecture-decisions.md) | `docs/adr/0001-…md` | The record format — and, as written, a real first ADR |
+| [adr/0000-record-architecture-decisions.md](docs/adr/0000-record-architecture-decisions.md) | `docs/adr/0000-…md` | The record format — and, as written, a real first ADR |
 | [CLAUDE.template.md](docs/CLAUDE.template.md) | `CLAUDE.md` | Instructions for Claude Code: the working agreement it must follow, plus the commands, architecture and conventions it cannot infer |
 | [USECASE_SPECIFICATION.html](docs/USECASE_SPECIFICATION.html) | `docs/USECASE_SPECIFICATION.html` | The document written before the code: overview and positioning, goals, stakeholders, functional and non-functional requirements, and a use case block per interaction. Self-contained dark-theme HTML — opens in a browser, prints to PDF for sign-off |
 
@@ -51,7 +51,7 @@ cp docs/CONTRIBUTING.template.md  my-project/CONTRIBUTING.md
 cp docs/CHANGELOG.template.md     my-project/CHANGELOG.md
 mkdir -p my-project/docs/adr
 cp docs/adr/README.template.md    my-project/docs/adr/README.md
-cp docs/adr/0001-*.md             my-project/docs/adr/
+cp docs/adr/0000-*.md             my-project/docs/adr/
 cp docs/USECASE_SPECIFICATION.html my-project/docs/
 ```
 
