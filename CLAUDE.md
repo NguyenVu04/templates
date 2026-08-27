@@ -170,6 +170,39 @@ tiny and synthetic on purpose: tests must never depend on the DVC-tracked datase
   reviewer can tell a deliberate omission from an oversight. New templates follow
   both and close with a checklist that tells the user to delete it.
 
+## Claude Code configuration
+
+`.claude/` holds three layers, in increasing order of how hard they bind.
+
+**Skills** (`.claude/skills/`) — eight, each a router `SKILL.md` plus a `references/`
+directory. Read the router first: it carries the routing table and the cross-cutting
+rules, then points at the one or two reference files the task needs. Two cover the ML
+ground: [`ai-engineering`](.claude/skills/ai-engineering/SKILL.md) for anything built
+on top of an LLM (prompts, RAG, agents, evals, fine-tuning, serving) and
+[`machine-learning`](.claude/skills/machine-learning/SKILL.md) for classical ML and
+PyTorch (EDA and splitting, architecture, training, interpretability, deployment,
+experiments, statistics). Fine-tuning an open-weight model is `ai-engineering`;
+training from scratch is `machine-learning`. The other six are per-stack lifecycles
+plus `coding-mentor-mode`.
+
+**Rules** (`.claude/rules/`) — six topic files, context rather than enforcement. Only
+`ai-ml-routing.md` loads every session; the rest carry `paths:` frontmatter and load
+only when a matching file is touched.
+
+**Hooks** (`.claude/hooks/`, wired in `.claude/settings.json`) — four stdlib-only
+Python scripts, all failing open on bad input or a missing tool.
+
+| Hook | Event | Effect |
+|---|---|---|
+| `skill_router.py` | UserPromptSubmit | Advisory: names the router and reference file a prompt matches. |
+| `ml_lint.py` | PostToolUse Write/Edit | Advisory: `ruff check --fix` + `format` on Python under `machine-learning/`; silent without `.venv`. |
+| `write_guard.py` | PreToolUse Write/Edit | **Denies** writes breaking `SKILL.md`/rule frontmatter, or overwriting a frozen test split. |
+| `bash_guard.py` | PreToolUse Bash | **Denies** pip/conda/poetry/venv, and staging checkpoints, `mlruns/` or large data into git. |
+
+A deny is not a malfunction — its reason names the rule and the alternative. Editing
+any of this is governed by
+[`.claude/rules/skill-authoring.md`](.claude/rules/skill-authoring.md).
+
 ## Before calling work done
 
 1. If Python changed: `task check` has been **run** from `machine-learning/`, not
@@ -177,5 +210,9 @@ tiny and synthetic on purpose: tests must never depend on the DVC-tracked datase
 2. If a `docs/` template changed: `grep -n '<[A-Z][A-Z0-9_]*>'` on it still
    returns its placeholders, and no `GUIDANCE` comment was left describing
    something that is no longer there.
-3. The report from "Always report what was done and changed" is written, with the
+3. If anything under `.claude/` changed: the affected hook scripts have been **run**
+   against sample stdin (each script's docstring carries an invocation), both the
+   trigger and the fail-open path confirmed, and the skill listing checked with
+   `/context` after a restart — hooks and skills are read at session start.
+4. The report from "Always report what was done and changed" is written, with the
    real command output and every skipped item named.

@@ -1,8 +1,3 @@
----
-name: llm-application-engineering
-description: Build production applications on top of LLM APIs — prompt engineering, structured output (JSON/function calling), streaming, retries and fallbacks, context window management, caching, and cost control. Use this skill whenever the user is integrating an LLM API (Anthropic/OpenAI/local) into an application, writing or improving prompts programmatically, parsing model output into typed data, handling API errors and rate limits, reducing token costs or latency, or building features like summarization, extraction, classification, or chat on top of a model ("gọi API LLM", "prompt engineering", "structured output", chatbot backend).
----
-
 # LLM Application Engineering
 
 An LLM app is a normal distributed system with a probabilistic component in the middle. Engineer around three facts: outputs vary, tokens cost money, and the API will fail. Treat prompts as code (versioned, tested, reviewed) and never trust output shape without validation.
@@ -15,7 +10,7 @@ In rough order of impact:
 3. **Give the model an out**: "if the answer is not in the document, return `null`" — the single best hallucination reducer in extraction tasks.
 4. **Positive instructions** ("respond in formal English") beat negative ones ("don't be casual"); constraints beat vibes ("≤3 sentences" beats "be brief").
 5. **Ask for reasoning before the answer** for hard tasks (or use a reasoning-enabled model); ask for the answer only, for easy high-volume tasks (cost).
-6. Keep a **prompt registry**: prompts in version control as templates with named variables, changelog, and eval scores per version (see `llm-evaluation` skill). Never edit prompts live in production code strings.
+6. Keep a **prompt registry**: prompts in version control as templates with named variables, changelog, and eval scores per version (see [evaluation.md](evaluation.md)). Never edit prompts live in production code strings.
 
 Debug prompts empirically: collect failing cases, change ONE thing, rerun the eval set. Prompt work without an eval set is astrology.
 
@@ -56,7 +51,7 @@ Schema design for LLMs: flat beats deeply nested; enums/Literals beat free strin
 
 - Budget explicitly: system + few-shot + retrieved context + history + output headroom. Count with the provider's tokenizer, don't estimate by characters.
 - Long chat history: keep system prompt + recent K turns verbatim + an LLM-written running summary of older turns. Summarize asynchronously, not on the hot path.
-- Long documents: don't stuff — retrieve relevant parts (see `rag-pipeline` skill) or map-reduce (summarize chunks → summarize summaries).
+- Long documents: don't stuff — retrieve relevant parts (see [rag.md](rag.md)) or map-reduce (summarize chunks → summarize summaries).
 - Models attend best to the start and end of context — put instructions at the start, the question/input at the end, bulk context in the middle.
 
 ## Cost & latency
@@ -70,6 +65,6 @@ Schema design for LLMs: flat beats deeply nested; enums/Literals beat free strin
 
 ## Security basics
 
-- Treat all user input and all retrieved/tool content as untrusted: prompt injection is the #1 attack. Mitigations: separate system vs user roles properly, delimit untrusted content clearly, never let raw model output execute privileged actions without validation/allow-lists, and constrain tools with least privilege (see `agent-development` skill).
+- Treat all user input and all retrieved/tool content as untrusted: prompt injection is the #1 attack. Mitigations: separate system vs user roles properly, delimit untrusted content clearly, never let raw model output execute privileged actions without validation/allow-lists, and constrain tools with least privilege (see [agents.md](agents.md)).
 - Never interpolate secrets into prompts; assume prompts leak (users can often extract them).
 - Validate model output before it touches: SQL, shell, URLs to fetch, HTML to render (XSS via markdown), or any state-changing API.

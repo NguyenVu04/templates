@@ -1,8 +1,3 @@
----
-name: research-experimentation
-description: Run rigorous ML/AI research experiments — controlled comparisons, ablation studies, fair baselines, multi-seed evaluation, statistical significance for papers/theses, and reproducible experiment code organization. Use this skill whenever the user is doing research or thesis work — comparing methods for a paper, designing ablations, deciding if an improvement is real, organizing experiment configs and results, mentions "ablation", "baseline", "thí nghiệm", "luận văn", "so sánh phương pháp", or reports a result from a single training run as if it were conclusive.
----
-
 # Research Experimentation
 
 Research results must survive three questions: Is the comparison fair? Is the effect bigger than the noise? Can someone else reproduce it? Build every experiment to answer all three by construction.
@@ -12,14 +7,14 @@ Research results must survive three questions: Is the comparison fair? Is the ef
 - **One question per experiment**, stated before running: "Does component X improve metric M on dataset D over baseline B?" Everything else fixed.
 - **Change exactly one variable** between compared runs. Method-vs-baseline comparisons where the method also got a better LR schedule, more epochs, or extra augmentation measure your tuning effort, not the method.
 - **Fair baselines are a moral obligation**: tune the baseline's hyperparameters with the same budget you gave your method (same search space size, same number of trials). Most "improvements" in the literature shrink or vanish under this rule — make sure yours doesn't.
-- Fixed data protocol before any method work: splits frozen and hashed, preprocessing identical across methods, test set touched only for the final table (validation drives every decision). Grouped/temporal split correctness per `ml-data-analysis`.
+- Fixed data protocol before any method work: splits frozen and hashed, preprocessing identical across methods, test set touched only for the final table (validation drives every decision). Grouped/temporal split correctness per [data.md](data.md).
 - Decide the **primary metric** (and its direction of "better") in advance; secondary metrics are reported, not cherry-picked post hoc.
 
 ## Noise: seeds and significance
 
 - **Never compare single runs.** Run ≥3 seeds (5 if the gap is small); seeds vary init, data order, and augmentation. Report mean ± std everywhere.
 - An improvement smaller than the seed-to-seed std of either method is not a finding — it's noise with a narrative.
-- Significance for the headline comparison: paired test on per-seed scores (paired t-test or Wilcoxon; same seeds used for both methods = paired). For per-sample metrics on a fixed test set, paired bootstrap over test items gives CIs on the gap. See `statistical-analysis` for mechanics.
+- Significance for the headline comparison: paired test on per-seed scores (paired t-test or Wilcoxon; same seeds used for both methods = paired). For per-sample metrics on a fixed test set, paired bootstrap over test items gives CIs on the gap. See [statistics.md](statistics.md) for mechanics.
 - Beware **graduate student descent**: iterating on the validation/test set until numbers improve overfits your process to the data. Keep a truly-final test evaluation count of one; if the dataset has a public leaderboard ethic, honor it privately too.
 
 ## Ablations
@@ -48,7 +43,7 @@ project/
 - The entry script snapshots into the run dir: full resolved config, git commit hash (+ dirty flag), environment (`pip freeze`/`uv lock`), seed, dataset version/hash. A result you can't trace to exact code+config+data is a rumor.
 - Configs compose: `base.yaml` + experiment overrides; the diff between two configs documents the experiment.
 - Never modify library code per-experiment ("temporarily comment out the norm layer") — every variant is a config flag. Untracked code edits are how results become unreproducible mysteries.
-- Name runs semantically (`dann_lambda0.3_seed42`), log to MLflow/W&B in addition to the run dir (see `pytorch-training-debugging`), and keep a lab-notebook file: date, hypothesis, runs launched, observation, next step. Future-you writing the thesis will need it desperately.
+- Name runs semantically (`dann_lambda0.3_seed42`), log to MLflow/W&B in addition to the run dir (see [training.md](training.md)), and keep a lab-notebook file: date, hypothesis, runs launched, observation, next step. Future-you writing the thesis will need it desperately.
 
 ## Analysis & reporting
 

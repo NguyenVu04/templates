@@ -115,6 +115,21 @@ The two sections nobody should delete on grounds of size: **Non-goals**, because
 it prevents work rather than describing it, and **Rollback**, because it is read
 under pressure by someone who has never deployed the thing.
 
+## The Claude Code setup
+
+`.claude/` is part of the repository, not local scratch. It ships eight skills, six
+rules and four hooks that encode the conventions the templates depend on:
+
+| | |
+|---|---|
+| [`.claude/skills/`](.claude/skills/) | Eight skills, each a router `SKILL.md` plus `references/`. `ai-engineering` covers LLM/RAG/agent work, `machine-learning` covers classical ML and PyTorch, and six more cover FastAPI, Go, Java, Rust, DevOps, and mentoring mode |
+| [`.claude/rules/`](.claude/rules/) | Topic rules. Most carry `paths:` frontmatter, so ML rules only load when Python or notebooks are open |
+| [`.claude/hooks/`](.claude/hooks/) | Four stdlib-only Python hooks: a prompt router, a ruff pass, and two guards that block pip/conda and committing checkpoints or data to git |
+
+Copy it alongside a template to carry the conventions into a new project; the
+routers and rules are written to survive the move. [CLAUDE.md](CLAUDE.md) documents
+what each layer does.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).

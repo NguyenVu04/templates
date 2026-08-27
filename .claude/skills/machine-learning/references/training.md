@@ -1,11 +1,6 @@
----
-name: pytorch-training-debugging
-description: Write, debug, and optimize PyTorch training pipelines — training loops, optimizers, LR schedules, mixed precision, checkpointing, early stopping, reproducibility, and experiment tracking. Use this skill whenever the user is training a model or when training misbehaves — loss is NaN/inf, loss not decreasing, train/val gap too large (overfitting), val metrics suspiciously good (leakage), GPU out of memory (CUDA OOM), training too slow, or results not reproducible. Also trigger for "training loop", "huấn luyện model", "loss không giảm", "fine-tune", hyperparameter tuning, and logging experiments with MLflow/W&B/TensorBoard.
----
-
 # PyTorch Training & Debugging
 
-Training code fails silently more often than it crashes. This skill provides a reference training loop, a debugging decision tree, and non-negotiable hygiene (reproducibility, checkpointing, tracking).
+Training code fails silently more often than it crashes. This reference provides a reference training loop, a debugging decision tree, and non-negotiable hygiene (reproducibility, checkpointing, tracking).
 
 ## Reference training loop
 
@@ -69,7 +64,7 @@ Take 1–2 batches (~32–64 samples), train several hundred steps. Loss must go
 
 **Train ↓ but val ↑ (overfitting)**: more augmentation → stronger weight decay/dropout → smaller model → more data. In that order.
 
-**Val "too good"**: suspect leakage — grouped entities split randomly, transform fitted on full data, target leakage in a feature. Fix the split before believing any number (see `ml-data-analysis` skill).
+**Val "too good"**: suspect leakage — grouped entities split randomly, transform fitted on full data, target leakage in a feature. Fix the split before believing any number (see [data.md](data.md)).
 
 **Train and val both good, test/production bad**: distribution shift. Compare feature distributions train-vs-test; consider domain adaptation. Monitor domain classifier accuracy ≈ 0.5 as a health signal that domains are aligned when using adversarial DA.
 

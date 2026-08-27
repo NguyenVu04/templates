@@ -1,8 +1,3 @@
----
-name: llm-evaluation
-description: Evaluate LLM applications systematically — building eval datasets, choosing metrics, LLM-as-judge design and calibration, regression testing for prompt/model changes, and online evaluation. Use this skill whenever the user wants to measure whether their LLM feature/prompt/RAG/agent is good, compare prompts or models, set up automated checks before shipping prompt changes, asks "how do I know if my prompt is better", "đánh giá chất lượng LLM", "eval", or is changing prompts/models based on eyeballing a few examples (vibe-checking).
----
-
 # LLM Evaluation
 
 Without evals, every prompt edit is a gamble and every model upgrade is a leap of faith. The goal is a cheap, trusted harness that answers "did this change make things better?" in minutes. Evals are to LLM apps what tests are to code — build them alongside the feature, not after.
@@ -22,7 +17,7 @@ Without evals, every prompt edit is a gamble and every model upgrade is a leap o
 3. **LLM-as-judge** — for subjective/qualitative criteria (helpfulness, faithfulness, tone). Powerful but must be designed and calibrated (below).
 4. **Human review** — gold standard; spend it calibrating judges and auditing samples, not grading everything.
 
-Task-specific canonical metrics: extraction → per-field precision/recall vs gold; classification → accuracy/F1 (it's just ML eval); RAG → retrieval hit-rate@k + faithfulness + answer correctness (stage-separated, see `rag-pipeline`); agents → task success rate + steps + cost; summarization → faithfulness (no invented facts) + coverage of key points (judge with rubric).
+Task-specific canonical metrics: extraction → per-field precision/recall vs gold; classification → accuracy/F1 (it's just ML eval); RAG → retrieval hit-rate@k + faithfulness + answer correctness (stage-separated, see [rag.md](rag.md)); agents → task success rate + steps + cost; summarization → faithfulness (no invented facts) + coverage of key points (judge with rubric).
 
 ## LLM-as-judge that can be trusted
 
@@ -59,5 +54,5 @@ Pytest-style assertions work for the code-graded layer; promptfoo/braintrust/lan
 
 - Log (input, prompt version, output, latency, cost) for all production traffic; sample for human/judge review.
 - Implicit signals: user retry/rephrase rate, thumbs, copy-rate, task abandonment, escalation-to-human rate — define per product.
-- A/B test prompt/model variants on live traffic with the same statistical discipline as any experiment (randomize by user, fixed horizon or sequential test — see `statistical-analysis` skill).
+- A/B test prompt/model variants on live traffic with the same statistical discipline as any experiment (randomize by user, fixed horizon or sequential test — see the `machine-learning` skill, `references/statistics.md`).
 - Drift watch: input distribution shifts (new topics, new languages) make the offline eval set stale; periodically fold fresh production samples in.

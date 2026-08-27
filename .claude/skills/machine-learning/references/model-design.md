@@ -1,8 +1,3 @@
----
-name: pytorch-model-design
-description: Design and implement neural network architectures in PyTorch — nn.Module structure, Dataset/DataLoader pipelines, layer selection, loss functions, and model sizing. Use this skill whenever the user wants to build, modify, or review a PyTorch model — MLPs, CNNs, Transformers/attention, encoder-decoder, multi-branch networks (e.g., DANN), embeddings, or custom layers. Also trigger for questions about choosing losses, activation functions, normalization layers, weight initialization, parameter counting, or fitting a model into limited GPU memory ("thiết kế mô hình", "xây dựng model", "kiến trúc mạng").
----
-
 # PyTorch Model Design
 
 Good PyTorch models are boring: clean module boundaries, explicit shapes, standard building blocks, and a config-driven interface. Cleverness goes into the problem formulation, not the code.
@@ -19,7 +14,7 @@ Match architecture to data structure, and start smaller than feels right:
 | Sets (unordered, variable-size) | DeepSets / Set Transformer (ISAB+PMA) | — |
 | Multi-domain / sim-to-real | Base model + adaptation branch (DANN/CORAL/MMD) | — |
 
-Rules of thumb: parameter count should be justified by dataset size (a 10M-param model on 40K samples will overfit without heavy regularization); prefer pretrained weights whenever the modality allows; a model that can't overfit a tiny subset is broken (see the training skill).
+Rules of thumb: parameter count should be justified by dataset size (a 10M-param model on 40K samples will overfit without heavy regularization); prefer pretrained weights whenever the modality allows; a model that can't overfit a tiny subset is broken (see [training.md](training.md)).
 
 ## Module structure
 
@@ -117,4 +112,4 @@ assert out.shape == (2, *expected_out)
 loss = criterion(out, dummy_target); loss.backward()   # gradients flow end-to-end
 ```
 
-Then hand off to the training pipeline (see `pytorch-training-debugging` skill).
+Then hand off to the training pipeline (see [training.md](training.md)).

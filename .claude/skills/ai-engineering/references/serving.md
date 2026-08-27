@@ -1,8 +1,3 @@
----
-name: llm-inference-serving
-description: Self-host and serve LLMs efficiently — vLLM/TGI/llama.cpp/Ollama, quantization (AWQ/GPTQ/GGUF), KV cache and continuous batching, VRAM estimation, LoRA adapter serving, and throughput/latency tuning. Use this skill whenever the user wants to run an open-weight model (Llama, Qwen, Mistral, etc.) locally or on their own servers, estimate what model fits in X GB of VRAM, speed up local inference, deploy an OpenAI-compatible endpoint, serve fine-tuned adapters, or asks "chạy model local", "deploy LLM", "GPU nào đủ", "out of memory khi load model".
----
-
 # LLM Inference Serving
 
 Serving LLMs is a memory-bandwidth problem wearing a compute costume. Two numbers rule everything: how much VRAM the weights + KV cache need, and how many tokens/second the memory bus can feed. Estimate before downloading anything.
@@ -41,7 +36,7 @@ Point any OpenAI SDK at `http://host:8000/v1` — keeping the OpenAI-compatible 
 
 - **Weight-only 4-bit (AWQ or GPTQ for GPU serving; GGUF Q4_K_M for llama.cpp)** is the sweet spot: ~4× memory cut, minor quality loss on 7B+, often FASTER than FP16 (memory-bound decoding loves smaller weights).
 - Prefer pre-quantized checkpoints from the model publisher or reputable quantizers on HF; quantize yourself only when serving a custom fine-tune.
-- Quality degrades more on small models (≤3B) and on tasks needing precision (math, code) — **always run your eval suite (see `llm-evaluation`) on the quantized model**, not the paper's benchmarks.
+- Quality degrades more on small models (≤3B) and on tasks needing precision (math, code) — **always run your eval suite (see [evaluation.md](evaluation.md)) on the quantized model**, not the paper's benchmarks.
 - KV cache quantization (FP8/INT8 KV) buys longer contexts or bigger batches when weights already fit.
 - bitsandbytes 4/8-bit is for experimentation/fine-tuning convenience, not serving throughput.
 

@@ -1,8 +1,3 @@
----
-name: statistical-analysis
-description: Rigorous statistical analysis in Python — hypothesis testing, A/B tests, confidence intervals, effect sizes, power analysis, and multiple-comparison correction (scipy.stats, statsmodels). Use this skill whenever the user wants to test whether a difference/effect is real, compare groups or models, design or analyze an A/B experiment, compute sample size, interpret p-values, or asks "is this significant", "kiểm định", "so sánh hai nhóm", "A/B test". Also trigger when the user is about to draw a conclusion from data (e.g. "model A is better than model B") without statistical backing.
----
-
 # Statistical Analysis
 
 Statistics is the guard rail between data and wrong conclusions. The workflow is always: define the question → check assumptions → pick the test → compute effect size + CI (not just p) → interpret honestly.

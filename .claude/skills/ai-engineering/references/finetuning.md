@@ -1,8 +1,3 @@
----
-name: model-finetuning
-description: Fine-tune LLMs and pretrained models — LoRA/QLoRA with PEFT, instruction dataset preparation, chat templates, SFT with TRL/axolotl, DPO preference tuning, hyperparameters, and post-finetune evaluation. Use this skill whenever the user wants to adapt a pretrained/open-weight model to their task or domain, prepare training data for fine-tuning, mentions "fine-tune", "LoRA", "QLoRA", "huấn luyện lại model", "train model trên dữ liệu riêng", asks whether to fine-tune vs prompt vs RAG, or their fine-tuned model got worse / forgot how to follow instructions.
----
-
 # Model Fine-tuning
 
 Fine-tuning is the last resort that people reach for first. It changes model *behavior* (style, format, task-specific skill); it is bad at adding *knowledge* (facts belong in RAG). Decide honestly before burning GPU-hours, and remember: data quality decides the outcome more than any hyperparameter.
@@ -11,10 +6,10 @@ Fine-tuning is the last resort that people reach for first. It changes model *be
 
 Try in this order — each step is 10× cheaper than the next:
 1. **Better prompting** (few-shot examples, clearer instructions) — solves most "the model doesn't do X" complaints.
-2. **RAG** — when the problem is missing/changing knowledge (see `rag-pipeline`).
+2. **RAG** — when the problem is missing/changing knowledge (see [rag.md](rag.md)).
 3. **Fine-tune** — when: the format/style must be deeply consistent, few-shot examples eat too much context at scale, the task is genuinely unusual (domain jargon, structured transformations), latency/cost demands a small specialized model replacing a big prompted one, or prompting has plateaued with an eval to prove it.
 
-Have an eval set BEFORE fine-tuning (see `llm-evaluation`) — otherwise "it worked" is vibes. Baseline the prompted big model and the prompted base model on it; the fine-tune must beat what you'd get for free.
+Have an eval set BEFORE fine-tuning (see [evaluation.md](evaluation.md)) — otherwise "it worked" is vibes. Baseline the prompted big model and the prompted base model on it; the fine-tune must beat what you'd get for free.
 
 ## Dataset preparation (where success is decided)
 
@@ -62,5 +57,5 @@ When SFT gets the format right but outputs need to be *better* along some axis (
 
 - Compare on your eval suite: fine-tuned vs base-prompted vs big-model-prompted, plus a general-capability check (a few MMLU-style or held-out instruction tasks) for forgetting, plus safety/refusal behavior if user-facing.
 - Read generations, not just scores — 30 side-by-side samples reveal failure modes metrics miss (subtle format drift, tone shifts, new hallucination patterns).
-- Ship: merge LoRA into base (`merge_and_unload`) for single-adapter serving → quantize (AWQ/GGUF) → **re-run the eval on the quantized artifact** → serve (see `llm-inference-serving`; multi-adapter setups serve adapters unmerged).
+- Ship: merge LoRA into base (`merge_and_unload`) for single-adapter serving → quantize (AWQ/GGUF) → **re-run the eval on the quantized artifact** → serve (see [serving.md](serving.md); multi-adapter setups serve adapters unmerged).
 - Version the triple (base model, adapter, dataset version) together; a fine-tune without its data lineage cannot be debugged, improved, or trusted.

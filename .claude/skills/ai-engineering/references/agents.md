@@ -1,8 +1,3 @@
----
-name: agent-development
-description: Build LLM agents — tool/function design, agentic loops (ReAct, plan-execute), state and memory management, multi-step task orchestration, guardrails, MCP servers, and agent debugging. Use this skill whenever the user wants an LLM to take actions (call APIs, query databases, browse, execute code), build a multi-step autonomous workflow, design tool schemas, mentions "agent", "function calling", "tool use", "MCP", "workflow tự động", or has an agent that loops forever, picks wrong tools, or fails mid-task.
----
-
 # Agent Development
 
 An agent = LLM in a loop with tools and state. Reliability comes from constraining the loop, not from prompting harder. The design question is always: what does the model decide vs what does code decide? Put in code everything that can be in code.
@@ -70,4 +65,4 @@ Standardized tool servers: build a server exposing tools/resources once, use fro
 - Eval on **tasks**, not turns: define end-state checks (file exists with correct content, DB row updated, correct answer returned) and measure task success rate over a suite of 20+ scenarios, pass@1, across seeds/temperatures. Also track steps-to-success and token cost — an agent that succeeds in 40 steps is a failure in waiting.
 - Include adversarial scenarios: impossible tasks (should report failure, not hallucinate success), injection attempts in tool results, tools erroring mid-task.
 - Debug from transcripts, categorize failures: wrong tool chosen (→ fix descriptions), wrong args (→ fix schema/examples), bad plan (→ planning prompt), gave up early / never terminated (→ loop mechanics), hallucinated a result instead of calling a tool (→ require tool use, verify claims against tool logs).
-- Regression-test the suite on every prompt/tool/model change (see `llm-evaluation` skill for harness patterns).
+- Regression-test the suite on every prompt/tool/model change (see [evaluation.md](evaluation.md) for harness patterns).

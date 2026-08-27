@@ -1,11 +1,6 @@
----
-name: ml-model-deployment
-description: Evaluate, export, and deploy trained ML/PyTorch models to production — choosing the right metrics, exporting to TorchScript/ONNX, serving with FastAPI, containerizing with Docker, optimizing inference (quantization, batching), and monitoring for drift. Use this skill whenever the user wants to serve a model behind an API, "triển khai model", "deploy", build an inference endpoint, convert a model for production, speed up inference / reduce model size, or set up model versioning and monitoring. Also trigger when the user asks how to properly evaluate a final model or report metrics before release.
----
-
 # ML Model Evaluation & Deployment
 
-A model is done when it's reproducibly evaluated, exported to a stable artifact, served behind a versioned API, and monitored. This skill covers that path end-to-end.
+A model is done when it's reproducibly evaluated, exported to a stable artifact, served behind a versioned API, and monitored. This reference covers that path end-to-end.
 
 ## 1. Final evaluation (gate before deployment)
 

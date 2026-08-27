@@ -1,11 +1,6 @@
----
-name: ml-data-analysis
-description: Rigorous exploratory data analysis (EDA) and data preparation for machine learning projects in Python (pandas, numpy, seaborn). Use this skill whenever the user wants to explore, clean, profile, or prepare a dataset for training — including loading CSVs/parquet, handling missing values and outliers, feature engineering, train/val/test splitting, or building preprocessing pipelines. Also trigger when the user mentions "EDA", "phân tích dữ liệu", "data cleaning", "feature engineering", "data leakage", or asks why a model performs suspiciously well or poorly, since data issues are the usual cause.
----
-
 # ML Data Analysis & Preparation
 
-The quality of an ML model is bounded by the quality of its data pipeline. This skill enforces a disciplined EDA → clean → split → transform workflow that prevents the two most expensive failure modes: silent data corruption and data leakage.
+The quality of an ML model is bounded by the quality of its data pipeline. This reference enforces a disciplined EDA → clean → split → transform workflow that prevents the two most expensive failure modes: silent data corruption and data leakage.
 
 ## Workflow
 

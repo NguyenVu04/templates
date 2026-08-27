@@ -1,8 +1,3 @@
----
-name: ml-interpretability
-description: Explain and audit machine learning models — SHAP, permutation importance, partial dependence, error analysis by slice, and basic fairness checks. Use this skill whenever the user wants to understand why a model makes its predictions, which features matter, explain a single prediction to a stakeholder, debug unexpected model behavior, detect leakage or spurious correlations via importances, or check whether a model treats subgroups differently ("giải thích model", "feature importance", "tại sao model dự đoán", model audit, XAI).
----
-
 # ML Interpretability
 
 Interpretability answers three distinct questions — always identify which one the user is asking: (1) *globally*, what drives this model? (2) *locally*, why this prediction for this instance? (3) *diagnostically*, where and for whom does the model fail?

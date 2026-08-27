@@ -1,8 +1,3 @@
----
-name: rag-pipeline
-description: Design, build, and evaluate Retrieval-Augmented Generation (RAG) systems — document chunking, embeddings, vector databases (FAISS/Qdrant/pgvector/Chroma), hybrid search with BM25, reranking, and RAG-specific evaluation. Use this skill whenever the user wants an LLM to answer questions over their own documents/knowledge base, mentions "RAG", "vector search", "semantic search", "embedding", "chatbot đọc tài liệu", "hỏi đáp trên tài liệu nội bộ", or complains that their RAG system retrieves wrong passages or the model answers from the wrong context.
----
-
 # RAG Pipeline
 
 RAG quality is retrieval quality. When a RAG system gives bad answers, the retrieved context was wrong ~80% of the time — debug retrieval before touching prompts or models. Build the pipeline so retrieval is inspectable and measurable on its own.
@@ -56,7 +51,7 @@ Build a golden set of 30–100 (question → relevant chunk ids → reference an
 
 Measure the stages SEPARATELY:
 - **Retrieval**: hit rate@k / recall@k (is a gold chunk in top-k?), MRR. Cheap, fast, run on every chunking/model/k change.
-- **Generation** (given retrieved context): faithfulness (is every claim supported by the context?) and answer relevance — LLM-as-judge with a rubric works (see `llm-evaluation` skill for judge design and calibration).
+- **Generation** (given retrieved context): faithfulness (is every claim supported by the context?) and answer relevance — LLM-as-judge with a rubric works (see [evaluation.md](evaluation.md) for judge design and calibration).
 - End-to-end answer correctness vs reference — the headline number, but diagnose via the stage metrics.
 
 Debugging playbook: bad answer → look at retrieved chunks. Gold chunk missing from top-k → retrieval problem (chunking? embeddings? need hybrid/rerank?). Gold chunk present but answer wrong → generation problem (prompt, chunk ordering, too much noise). Gold chunk doesn't exist → ingestion/coverage problem. Log retrieved chunk ids per query in production so failures arrive reproducible.
