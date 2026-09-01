@@ -137,6 +137,22 @@ released, or deployed, and what depends on it.>
 
 - **Style.** <STYLE_RULES, e.g. enforced by <LINT_COMMAND>; the non-obvious part is
   <NON_OBVIOUS_RULE>.>
+- **Comments and docstrings.** Keep both as brief and plain as they can be while
+  still being understood. The code says *what* it does; a comment carries the *why*
+  the code cannot — a business rule, an external constraint, a workaround, a
+  deliberate trade-off.
+  - Comment only where it makes the code more readable. Prefer a clearer name, a
+    smaller function, or a named constant over prose explaining a confusing line.
+  - Never restate the code below it. A comment that repeats the code goes stale and
+    starts lying the first time the code changes; delete outdated comments and
+    commented-out code in the same change that outdated them.
+  - Anything that came from outside the code cites its source — the spec, RFC,
+    ticket, ADR, or named business rule, as `<REFERENCE_STYLE, e.g. see
+    docs/adr/0007-retry-policy.md>`. No magic number or surprising branch without one.
+  - Docstrings on <DOCSTRING_SCOPE, e.g. every public module, class, and function>,
+    in <DOCSTRING_STYLE, e.g. Google style, enforced by <LINT_COMMAND>>. State what a
+    caller needs — behaviour, arguments, return value, what it raises — not how the
+    body works.
 - **Tests.** <TEST_CONVENTION, e.g. where tests live, what a new one must cover,
   and what must never be reached from a test — network, real data, a live service.>
 - **Errors.** <ERROR_CONVENTION, e.g. which exception type or result shape crosses
