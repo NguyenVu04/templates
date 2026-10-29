@@ -42,6 +42,8 @@ set of documents to drop into any project, whatever the stack.
 | [adr/0000-record-architecture-decisions.md](docs/adr/0000-record-architecture-decisions.md) | `docs/adr/0000-…md` | The record format — and, as written, a real first ADR |
 | [CLAUDE.template.md](docs/CLAUDE.template.md) | `CLAUDE.md` | Instructions for Claude Code: the working agreement it must follow, plus the commands, architecture and conventions it cannot infer |
 | [USECASE_SPECIFICATION.html](docs/USECASE_SPECIFICATION.html) | `docs/USECASE_SPECIFICATION.html` | The document written before the code: overview and positioning, goals, stakeholders, functional and non-functional requirements, and a use case block per interaction. Self-contained dark-theme HTML — opens in a browser, prints to PDF for sign-off |
+| [architecture/ARCHITECTURE.template.md](docs/architecture/ARCHITECTURE.template.md) | `docs/architecture/ARCHITECTURE.md` | The design document for the system itself. Drivers and constraints, then three views — the modules the source is organised into, the components and connectors that exist at run time, and the machines they deploy onto — plus a class diagram per module, a table mapping the views onto each other, and traceability back to the requirements |
+| [ERD.template.md](docs/ERD.template.md) | `docs/ERD.md` | The database design: every table, column group and relationship, the reason for each decision, and what deletion and erasure do to each table |
 
 ```bash
 cp docs/README.template.md        my-project/README.md
@@ -53,7 +55,17 @@ mkdir -p my-project/docs/adr
 cp docs/adr/README.template.md    my-project/docs/adr/README.md
 cp docs/adr/0000-*.md             my-project/docs/adr/
 cp docs/USECASE_SPECIFICATION.html my-project/docs/
+cp docs/ERD.template.md           my-project/docs/ERD.md
+mkdir -p my-project/docs/architecture/images
+cp docs/architecture/ARCHITECTURE.template.md my-project/docs/architecture/ARCHITECTURE.md
 ```
+
+`docs/architecture/images/` is where the rendered diagrams go. The architecture
+template is the only one with anything to render: its overall and deployment
+pictures are Python, drawn with [`diagrams`](https://diagrams.mingrammer.com/) over
+Graphviz, and the image each script writes is committed beside the script. The
+template gives the command. Nothing is installed in **this** repository — the
+dependency belongs to the project you copy into.
 
 Relative links inside the templates — `SECURITY.md`, `docs/adr/`,
 `.github/CODEOWNERS` — are written for the **destination** project root, not for
@@ -81,6 +93,14 @@ check is `grep -n '&lt;[A-Z][A-Z0-9_]*&gt;'`. For the same reason its markers ar
 visible boxes on the page rather than HTML comments, which nobody reading in a
 browser would see. It needs no `.template` suffix: GitHub auto-discovers only
 `SECURITY.md` and `CONTRIBUTING.md`.
+
+[ARCHITECTURE.template.md](docs/architecture/ARCHITECTURE.template.md) and
+[ERD.template.md](docs/ERD.template.md) are the other two exceptions. Both are
+built out of diagrams, and a `<NAME>` inside a Mermaid label is parsed as an HTML
+tag and does not survive rendering — so both use `{{NAME}}`, and their check is
+`grep -n '{{' FILE`. Their diagrams carry example values rather than placeholders
+for the same reason: Mermaid node, class and subgraph ids take only letters, digits
+and underscores. Each template says which example names to replace.
 
 **Markers** in HTML comments say whether a section applies to you. They never
 render, and they are deleted along with the sections they govern:

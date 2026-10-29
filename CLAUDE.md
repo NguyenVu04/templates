@@ -95,8 +95,13 @@ argument lists every available task.
 
 `uv run pre-commit run --all-files` runs the hooks over the whole tree.
 
-The `docs/` templates have no build step — they are Markdown, copied into other
-projects.
+The `docs/` templates are Markdown, copied into other projects, and have no build
+step here. The one thing in them that renders is the `diagrams` Python in
+[docs/architecture/ARCHITECTURE.template.md](docs/architecture/ARCHITECTURE.template.md),
+which draws the overall and deployment pictures. That needs the `diagrams` package
+and the Graphviz binary **in the destination project, never in this one** — the
+template ships the code and the command, and this repository installs neither and
+commits no rendered image.
 
 ## Architecture
 
@@ -162,6 +167,13 @@ tiny and synthetic on purpose: tests must never depend on the DVC-tracked datase
 - **Relative links inside `docs/` templates are written for the destination
   project root**, not for this repository. `SECURITY.md`, `docs/adr/`,
   `.github/CODEOWNERS` resolve once copied; they are not broken links to fix here.
+- **The diagram templates use `{{NAME}}`, not angle brackets.**
+  [docs/architecture/ARCHITECTURE.template.md](docs/architecture/ARCHITECTURE.template.md)
+  and [docs/ERD.template.md](docs/ERD.template.md) are checked with
+  `grep -n '{{' FILE`. A `<NAME>` inside a Mermaid label is parsed as an HTML tag
+  and vanishes when rendered. For the same reason their Mermaid and Python blocks
+  carry example values, not placeholders — Mermaid ids take only letters, digits
+  and underscores. Do not "fix" either file to the angle-bracket convention.
 - **Two template conventions**, documented in [README.md](README.md):
   screaming-snake-case placeholders in angle brackets, verifiable with
   `grep -n '<[A-Z][A-Z0-9_]*>' FILE`, and HTML-comment markers —
@@ -208,8 +220,11 @@ any of this is governed by
 1. If Python changed: `task check` has been **run** from `machine-learning/`, not
    assumed.
 2. If a `docs/` template changed: `grep -n '<[A-Z][A-Z0-9_]*>'` on it still
-   returns its placeholders, and no `GUIDANCE` comment was left describing
-   something that is no longer there.
+   returns its placeholders — `grep -n '{{'` for the two diagram templates, which
+   must return nothing for the angle-bracket check — and no `GUIDANCE` comment was
+   left describing something that is no longer there. If a Mermaid or `diagrams`
+   block changed, it has been **rendered**, not read: Mermaid parses *and* draws
+   every label, and the `diagrams` Python's node import paths exist.
 3. If anything under `.claude/` changed: the affected hook scripts have been **run**
    against sample stdin (each script's docstring carries an invocation), both the
    trigger and the fail-open path confirmed, and the skill listing checked with
