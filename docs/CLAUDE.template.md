@@ -26,7 +26,7 @@ in this repository.
 
 ## Working agreement
 
-These four rules outrank convenience. They apply to every task in this repository,
+These seven rules outrank convenience. They apply to every task in this repository,
 including ones the user describes as quick or trivial.
 
 ### Never guess
@@ -46,6 +46,39 @@ it, state the assumption explicitly in the response, and continue. When proceedi
 under a wrong assumption would be unsafe, destructive, or would waste the work
 entirely — stop and ask before doing anything.
 
+### Plan before you implement
+
+Before writing or changing any code, post the plan and wait for approval. No file
+is touched until the user answers.
+
+The plan lists, for every module, class, method, function, and data structure you
+intend to add or change:
+
+- **What** — the path, the name, and the exact signature: parameter and return
+  types included. For a data structure, its fields and their types.
+- **New or modified** — and for a modification, what it is today.
+- **Why** — the reason this piece is needed, and why in this shape rather than the
+  obvious alternative.
+- **Tests** — the named test cases that prove it, each with its input and expected
+  result, error and boundary cases included.
+
+One entry looks like this:
+
+```
+src/billing/invoice.py  (modified)
+  def apply_discount(invoice: Invoice, code: str) -> Invoice
+    Today: takes a float rate and resolves nothing.
+    Why:   callers hold the code, not the rate; resolving it here keeps one rule
+           authoritative (see docs/adr/0012-discounts.md).
+    Tests: test_apply_discount_percentage   100.00, "SAVE10" -> 90.00
+           test_apply_discount_unknown_code raises UnknownDiscount
+           test_apply_discount_expired      raises ExpiredDiscount
+           test_apply_discount_zero_total   0.00, "SAVE10" -> 0.00
+```
+
+It is a list to approve, not a design document — list what is actually being
+built and nothing else.
+
 ### Ask before "fixing" code the user supplied
 
 When the user provides a script, a diff, or a file that does not meet the
@@ -59,6 +92,27 @@ standards in this document, do not silently rewrite it.
 
 Do the work that was asked for. Improvements you noticed but were not asked for
 are reported, not applied.
+
+### Raise out-of-scope decisions, do not take them
+
+While implementing, anything the approved plan does not cover — an unexpected bug,
+an assumption that turned out false, an error from a dependency, work that would
+touch a file the plan did not list — stops the work and comes back to the user.
+
+State it as: what was hit and where; why the plan does not cover it; each option
+with its trade-off and what it costs elsewhere; which one you would pick and why.
+Then wait. Do not take the obvious one, do not work around it silently, and do not
+widen the plan to absorb it.
+
+The one exception: a mechanical one-line correction inside a file the plan already
+lists — a typo, a wrong import — is fixed and reported, not escalated.
+
+### Explain with examples
+
+Every explanation carries a concrete example where one exists: real values, a short
+snippet, the actual command and its output, a before and an after. "Validation
+happens at the boundary" is not an explanation; the request that gets rejected and
+the error it returns is. If no example is possible, say so in one line and why.
 
 ### Always report what was done and changed
 
@@ -176,13 +230,15 @@ commit the real values.
 ## Before calling work done
 
 1. `<LINT_COMMAND>` and `<TEST_COMMAND>` have been **run**, not assumed.
-2. The change does what was asked and nothing more.
-3. The report from "Always report what was done and changed" is written, with the
+2. What shipped matches the approved plan, and every deviation from it was raised
+   and decided by the user, not absorbed.
+3. The change does what was asked and nothing more.
+4. The report from "Always report what was done and changed" is written, with the
    real command output and every skipped item named.
 
 <!-- OPTIONAL: keep if this project has a manual verification step that automation
      does not cover — a UI to look at, an endpoint to curl, a migration to dry-run. -->
-4. <MANUAL_VERIFICATION_STEP>
+5. <MANUAL_VERIFICATION_STEP>
 
 ---
 
