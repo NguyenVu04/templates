@@ -165,7 +165,7 @@ tiny and synthetic on purpose: tests must never depend on the DVC-tracked datase
   `.github/`, and in `docs/` — without the suffix this repository would publish a
   blank template as its own security policy. The suffix is dropped on copy.
 - **Relative links inside `docs/` templates are written for the destination
-  project root**, not for this repository. `SECURITY.md`, `docs/adr/`,
+  project root**, not for this repository. `SECURITY.md`, `docs/architecture/adr/`,
   `.github/CODEOWNERS` resolve once copied; they are not broken links to fix here.
 - **The diagram templates use `{{NAME}}`, not angle brackets.**
   [docs/architecture/ARCHITECTURE.template.md](docs/architecture/ARCHITECTURE.template.md)

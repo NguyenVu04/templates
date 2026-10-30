@@ -2,7 +2,7 @@
   This file is both the record template and, as written, a real first ADR.
 
   To adopt the practice: copy this file into your project as
-  docs/adr/0000-record-architecture-decisions.md, set the date, and it is done —
+  docs/architecture/adr/0000-record-architecture-decisions.md, set the date, and it is done —
   the decision it records is the decision to keep ADRs at all.
 
   To write a new record: copy this file to NNNN-short-title-in-kebab-case.md and
@@ -39,7 +39,7 @@ existed for a reason nobody can now state.
 <!-- GUIDANCE: One paragraph, active voice, present tense: "We do X." Not "we
      should" or "we will consider". -->
 
-We record architecturally significant decisions as ADRs in `docs/adr/`, one file
+We record architecturally significant decisions as ADRs in `docs/architecture/adr/`, one file
 per decision, numbered sequentially and written at the time the decision is made.
 Records are immutable once accepted: a decision that no longer holds is superseded
 by a new record rather than edited.

@@ -401,10 +401,10 @@ Restore a past result: `<REPRODUCE_COMMAND>`. Retention of artifacts:
 | **Code owners** | [`CODEOWNERS`](.github/CODEOWNERS) |
 | **Review requirement** | <NUMBER_OF_APPROVALS> approval(s), including a code owner |
 | **Merge policy** | <MERGE_POLICY, e.g. squash, linear history, all checks green> |
-| **Decision records** | [`docs/adr/`](docs/adr/) |
+| **Decision records** | [`docs/architecture/adr/`](docs/architecture/adr/) |
 
 Architecturally significant changes need an ADR before implementation. See
-[docs/adr/README.md](docs/adr/README.md) for what counts as significant.
+[docs/architecture/adr/README.md](docs/architecture/adr/README.md) for what counts as significant.
 
 <!-- OPTIONAL: keep only if you will maintain it. A stale roadmap is worse than
      no roadmap — it makes every other section look stale too. -->

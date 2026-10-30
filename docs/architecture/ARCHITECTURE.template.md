@@ -614,7 +614,7 @@ review of YYYY-MM-DD.}}
      answers, and link the ADR that records it. A decision with no ADR and no driver
      is a preference; say so, so a later reader knows it can be changed cheaply.
      Architecturally significant decisions need an ADR before implementation — see
-     docs/adr/. -->
+     docs/architecture/adr/. -->
 
 | # | Decision | Answers | Alternative rejected | ADR |
 |---|---|---|---|---|

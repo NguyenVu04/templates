@@ -23,7 +23,7 @@ Found a security problem? Do not open an issue — follow [SECURITY.md](SECURITY
 - **New features or behaviour changes** — open an issue first so we can agree the
   approach before you spend time on it.
 - **Architecturally significant changes** — write an ADR first. See
-  [docs/adr/README.md](docs/adr/README.md).
+  [docs/architecture/adr/README.md](docs/architecture/adr/README.md).
 
 ## Development environment
 

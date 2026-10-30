@@ -38,8 +38,8 @@ set of documents to drop into any project, whatever the stack.
 | [SECURITY.template.md](docs/SECURITY.template.md) | `SECURITY.md` | Supported versions, private reporting channel, response times, disclosure |
 | [CONTRIBUTING.template.md](docs/CONTRIBUTING.template.md) | `CONTRIBUTING.md` | Setup, commit and branch conventions, PR requirements, review SLA |
 | [CHANGELOG.template.md](docs/CHANGELOG.template.md) | `CHANGELOG.md` | Keep a Changelog skeleton with a worked release entry |
-| [adr/README.template.md](docs/adr/README.template.md) | `docs/adr/README.md` | When a decision warrants a record, the lifecycle, and the index |
-| [adr/0000-record-architecture-decisions.md](docs/adr/0000-record-architecture-decisions.md) | `docs/adr/0000-…md` | The record format — and, as written, a real first ADR |
+| [architecture/adr/README.template.md](docs/architecture/adr/README.template.md) | `docs/architecture/adr/README.md` | When a decision warrants a record, the lifecycle, and the index |
+| [architecture/adr/0000-record-architecture-decisions.md](docs/architecture/adr/0000-record-architecture-decisions.md) | `docs/architecture/adr/0000-…md` | The record format — and, as written, a real first ADR |
 | [CLAUDE.template.md](docs/CLAUDE.template.md) | `CLAUDE.md` | Instructions for Claude Code: the working agreement it must follow, plus the commands, architecture and conventions it cannot infer |
 | [USECASE_SPECIFICATION.html](docs/USECASE_SPECIFICATION.html) | `docs/USECASE_SPECIFICATION.html` | The document written before the code: overview and positioning, goals, stakeholders, functional and non-functional requirements, and a use case block per interaction. Self-contained dark-theme HTML — opens in a browser, prints to PDF for sign-off |
 | [architecture/ARCHITECTURE.template.md](docs/architecture/ARCHITECTURE.template.md) | `docs/architecture/ARCHITECTURE.md` | The design document for the system itself. Drivers and constraints, then three views — the modules the source is organised into, the components and connectors that exist at run time, and the machines they deploy onto — plus a class diagram per module, a table mapping the views onto each other, and traceability back to the requirements |
@@ -51,9 +51,9 @@ cp docs/CLAUDE.template.md        my-project/CLAUDE.md
 cp docs/SECURITY.template.md      my-project/SECURITY.md
 cp docs/CONTRIBUTING.template.md  my-project/CONTRIBUTING.md
 cp docs/CHANGELOG.template.md     my-project/CHANGELOG.md
-mkdir -p my-project/docs/adr
-cp docs/adr/README.template.md    my-project/docs/adr/README.md
-cp docs/adr/0000-*.md             my-project/docs/adr/
+mkdir -p my-project/docs/architecture/adr
+cp docs/architecture/adr/README.template.md    my-project/docs/architecture/adr/README.md
+cp docs/architecture/adr/0000-*.md             my-project/docs/architecture/adr/
 cp docs/USECASE_SPECIFICATION.html my-project/docs/
 cp docs/ERD.template.md           my-project/docs/ERD.md
 mkdir -p my-project/docs/architecture/images
@@ -67,7 +67,7 @@ Graphviz, and the image each script writes is committed beside the script. The
 template gives the command. Nothing is installed in **this** repository — the
 dependency belongs to the project you copy into.
 
-Relative links inside the templates — `SECURITY.md`, `docs/adr/`,
+Relative links inside the templates — `SECURITY.md`, `docs/architecture/adr/`,
 `.github/CODEOWNERS` — are written for the **destination** project root, not for
 this repository. They resolve once the files are copied into place; they are not
 broken links to fix here.

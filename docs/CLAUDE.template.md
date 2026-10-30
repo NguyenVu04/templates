@@ -69,7 +69,7 @@ src/billing/invoice.py  (modified)
   def apply_discount(invoice: Invoice, code: str) -> Invoice
     Today: takes a float rate and resolves nothing.
     Why:   callers hold the code, not the rate; resolving it here keeps one rule
-           authoritative (see docs/adr/0012-discounts.md).
+           authoritative (see docs/architecture/adr/0012-discounts.md).
     Tests: test_apply_discount_percentage   100.00, "SAVE10" -> 90.00
            test_apply_discount_unknown_code raises UnknownDiscount
            test_apply_discount_expired      raises ExpiredDiscount
@@ -202,7 +202,7 @@ released, or deployed, and what depends on it.>
     commented-out code in the same change that outdated them.
   - Anything that came from outside the code cites its source — the spec, RFC,
     ticket, ADR, or named business rule, as `<REFERENCE_STYLE, e.g. see
-    docs/adr/0007-retry-policy.md>`. No magic number or surprising branch without one.
+    docs/architecture/adr/0007-retry-policy.md>`. No magic number or surprising branch without one.
   - Docstrings on <DOCSTRING_SCOPE, e.g. every public module, class, and function>,
     in <DOCSTRING_STYLE, e.g. Google style, enforced by <LINT_COMMAND>>. State what a
     caller needs — behaviour, arguments, return value, what it raises — not how the

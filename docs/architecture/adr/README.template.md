@@ -1,7 +1,7 @@
 <!--
   ADR INDEX TEMPLATE
   ==================
-  Copy to your project as docs/adr/README.md, alongside the record template
+  Copy to your project as docs/architecture/adr/README.md, alongside the record template
   0000-record-architecture-decisions.md.
 
   Same conventions as README.template.md: replace every <PLACEHOLDER>, delete
