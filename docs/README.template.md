@@ -19,7 +19,22 @@
                                     always delete before publishing
 
      No section is silently optional. A section with no marker is required, so a
-     reviewer can tell a deliberate omission from an oversight.
+     reviewer can tell a deliberate omission from an oversight. The Contents
+     table below lists every section with its status, so you can see what you
+     must fill before you start filling it.
+
+  3. AN OPTIONAL OR REQUIRED-IF SECTION has two honest endings, never a third:
+
+         delete it entirely        heading, marker, body
+         keep it with one line     delete the marker and the body, keep the
+                                   heading, and put one of these in its place:
+
+             _Not applicable._         the condition does not hold here
+             _Not documented yet._     it applies, nobody has written it down
+
+     Keeping the heading records that the question was asked. Leaving a section
+     with its placeholders still in it is the third ending — it reads as filled
+     in until someone tries to use it. A required section has no escape line.
 
   Delete this comment block once you are done.
 -->
@@ -58,22 +73,35 @@
 
 ## Contents
 
-- [Overview](#overview)
-- [Architecture](#architecture)
-- [Getting started](#getting-started)
-- [Configuration](#configuration)
-- [Usage](#usage)
-- [Development](#development)
-- [Testing](#testing)
-- [Build and deployment](#build-and-deployment)
-- [Observability](#observability)
-- [Security](#security)
-- [Compliance and data handling](#compliance-and-data-handling)
-- [Service levels and support](#service-levels-and-support)
-- [Versioning and compatibility](#versioning-and-compatibility)
-- [Governance](#governance)
-- [Roadmap](#roadmap)
-- [Contributing](#contributing)
+<!-- GUIDANCE: The Status column is for whoever is filling this file in; delete
+     it, and this comment, once the file is filled in. Required means fill it.
+     Required-if carries its condition on the section itself. Optional is yours
+     to delete or to keep with one line — see convention 3 at the top. -->
+
+| Section | Status |
+|---|---|
+| [Status and ownership](#status-and-ownership) | Required |
+| [Overview](#overview) | Required |
+| [Architecture](#architecture) | Required |
+| [Getting started](#getting-started) | Required |
+| [Configuration](#configuration) | Required |
+| [Usage](#usage) | Required |
+| [Development](#development) | Required |
+| [Testing](#testing) | Required |
+| [Build and deployment](#build-and-deployment) | Required if deployed anywhere |
+| [Observability](#observability) | Required if a long-running service |
+| [Security](#security) | Required |
+| [Compliance and data handling](#compliance-and-data-handling) | Required if it holds regulated data |
+| [Service levels and support](#service-levels-and-support) | Optional |
+| [Versioning and compatibility](#versioning-and-compatibility) | Required |
+| [Governance](#governance) | Required |
+| [Roadmap](#roadmap) | Optional |
+| [Contributing](#contributing) | Required |
+| [License](#license) | Required |
+| [Acknowledgements](#acknowledgements) | Optional |
+
+Sub-sections with their own status: [Feature flags](#feature-flags) (optional),
+[Artifact lineage](#artifact-lineage) (required if results must be reproducible).
 
 ## Overview
 
@@ -434,8 +462,11 @@ Start with [CONTRIBUTING.md](CONTRIBUTING.md). Release history is in
   BEFORE YOU PUBLISH
   ==================
   [ ] `grep -n '<[A-Z][A-Z0-9_]*>' README.md` returns nothing.
-  [ ] Every REQUIRED-IF and OPTIONAL section is either filled in or deleted
-      entirely — heading, marker, and body.
+  [ ] Every REQUIRED-IF and OPTIONAL section has one of its three endings:
+      filled in, deleted entirely (heading, marker, and body), or reduced to its
+      heading plus `_Not applicable._` / `_Not documented yet._`.
+  [ ] No section is left with its placeholders still in it.
+  [ ] The Status column and its GUIDANCE comment are deleted from Contents.
   [ ] Every GUIDANCE comment is deleted.
   [ ] Owning team, contact, and on-call resolve to something real and current.
   [ ] Every link resolves, including the badge URLs.
